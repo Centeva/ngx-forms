@@ -1,4 +1,5 @@
 import { Component, ViewContainerRef } from '@angular/core';
+import { FormsConfig } from '../../src/formsConfig';
 
 @Component({
 	selector: 'app-root',
@@ -7,6 +8,5 @@ import { Component, ViewContainerRef } from '@angular/core';
 })
 export class AppComponent {
 	constructor() {
-
 	}
 }

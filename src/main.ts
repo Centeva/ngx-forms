@@ -1,4 +1,4 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { DatePickerModule } from './datepicker.module';
+import { FormModule } from './form.module';
 
-platformBrowserDynamic().bootstrapModule(DatePickerModule);
+platformBrowserDynamic().bootstrapModule(FormModule);

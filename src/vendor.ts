@@ -12,3 +12,5 @@ import 'rxjs';
 // You can import js, ts, css, sass, ...
 import 'moment';
 import 'jquery';
+import 'quill';
+import 'angular-pipes';

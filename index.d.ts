@@ -1,1 +1,1 @@
-export * from './src/datepicker.module';
+export * from './src/form.module';

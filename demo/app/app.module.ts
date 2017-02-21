@@ -8,7 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { appRouterProviders } from './app.routes';
-import { DatePickerModule } from '../../src/datepicker.module';
+import { FormModule, Tools } from '../../src/form.module';
+import { FormsConfig } from '../../src/formsConfig';
+
+class MyFormConfig extends FormsConfig {
+	refreshCall(s: {Type: string}, form) {
+		
+		console.log('WOW!');
+	}
+};
 
 @NgModule({
 	declarations: [
@@ -21,7 +29,7 @@ import { DatePickerModule } from '../../src/datepicker.module';
 		FormsModule,
 		HttpModule,
 		ReactiveFormsModule,
-		DatePickerModule
+		FormModule.initModule(new MyFormConfig())
 	],
 	bootstrap: [
 		AppComponent

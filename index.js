@@ -1,1 +1,1 @@
-export {DatePickerModule} from './src/datepicker.module';
+export {FormModule} from './src/form.module';
