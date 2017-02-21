@@ -18,6 +18,7 @@ import { Search, SearchModel } from './search.pipe';
 
 import { FormsConfig } from './formsConfig';
 
+export { FormsConfig } from './formsConfig';
 export { Tools } from './editForm';
 
 @NgModule({
