@@ -5,11 +5,14 @@
   "description": "Angular 2 forms for Centeva projects",
   "main": "dist/ctng.umd.js",
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
+    "test": "karma start --single-run --browsers PhantomJS"
   },
   "author": "Devyn Cyphers <devyn.cyphers@centeva.com>",
   "license": "MIT",
-  "repository": "https://github.com/Centeva/ngx-forms",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Centeva/ngx-forms.git"
+  },
   "devDependencies": {
     "@angular/common": "~2.3.0",
     "@angular/compiler": "~2.3.0",
@@ -67,5 +70,14 @@
     "angular-pipes": "^6.1.1",
     "ct-ngx-datepicker": "^2.2.0",
     "quill": "^1.2.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Centeva/ngx-forms/issues"
+  },
+  "homepage": "https://github.com/Centeva/ngx-forms#readme",
+  "keywords": [
+    "forms",
+    "angular2",
+    "typescript"
+  ]
 }
