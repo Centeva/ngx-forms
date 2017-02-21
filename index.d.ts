@@ -1,1 +1,1 @@
-export * from './src/form.module';
+export {FormsConfig, FormModule, Tools} from './src/form.module';

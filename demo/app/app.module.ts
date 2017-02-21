@@ -18,6 +18,8 @@ class MyFormConfig extends FormsConfig {
 	}
 };
 
+let config = new MyFormConfig();
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -29,7 +31,7 @@ class MyFormConfig extends FormsConfig {
 		FormsModule,
 		HttpModule,
 		ReactiveFormsModule,
-		FormModule.initModule(new MyFormConfig())
+		FormModule.initModule(config)
 	],
 	bootstrap: [
 		AppComponent
