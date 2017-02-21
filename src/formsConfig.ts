@@ -3,7 +3,7 @@ import { Tools } from './form.module';
 
 @Injectable()
 export abstract class FormsConfig {
-    abstract refreshCall<T> (s: T, form: Tools.Form);
+    abstract refreshCall<T> (s: T, ...form: Tools.Form[]);
 
     constructor({}:Partial<FormsConfig> = {}) {
         for(let p in arguments[0]) {

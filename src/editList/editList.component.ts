@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, OnDestroy, EventEmitter, Output, OnChanges, trigger, style, transition, animate, ViewChildren } from '@angular/core';
 // import { Store, AppState, DataActions, MiscActions } from '../../../cdux';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 // import { SearchModel } from '../../../pipe';
 import * as moment from 'moment';
 import { Tools, EditFormComponent } from '../editForm';
 declare var $: any;
 import * as _ from 'lodash';
+import { SearchModel } from '../search.pipe';
+import { FormsConfig } from '../formsConfig';
 
 @Component({
 
@@ -43,10 +45,13 @@ export class EditListComponent implements OnInit, OnDestroy, OnChanges {
 	@Output() onEdit: EventEmitter<Tools.Form> = new EventEmitter<Tools.Form>();
 	// Optionally specify the max height of the list. If it exceeds it will begin to scroll.
 	@Input() listHeight: string;
+	// To make this tool generic we need a way to hook into the state system. We expect a BehaviorSubject as your state object. This calls the refreshCall on subscribe.
+	@Input() state: BehaviorSubject<any>;
+
 	// When we are showing data inline we need a header.
 	headers: string[] = this.calcHeaders();
 	// We use this object to only show fields that have a coresponding header.
-	// searchObject: SearchModel = new SearchModel(['Name'], this.headers);
+	searchObject: SearchModel = new SearchModel(['Name'], this.headers);
 	// Sub.
 	storeSubscription: Subscription;
 	lastCodeTables: string[] = [];
@@ -56,11 +61,12 @@ export class EditListComponent implements OnInit, OnDestroy, OnChanges {
 
 	fieldType = Tools.FieldType;
 
-	constructor() { };
+	constructor(private config: FormsConfig) { };
 // private store: Store, private dataActions: DataActions, private miscActions: MiscActions
 	ngOnInit() {
 		// this.storeSubscription = this.store.subscribe(s => this.onStoreChange(s));
 		// this.miscActions.poke();
+		this.storeSubscription = this.state.subscribe(s => this.config.refreshCall(s, ...this.forms))
 
 	};
 
@@ -71,7 +77,9 @@ export class EditListComponent implements OnInit, OnDestroy, OnChanges {
 	ngOnChanges(changes) {
 		// If we make any changes we need to make sure our header/searchObject is current.
 		this.headers = this.calcHeaders();
-		// this.searchObject = new SearchModel(['Name'], this.headers);
+		this.searchObject = new SearchModel(['Name'], this.headers);
+
+		this.config.refreshCall(this.state.getValue(), ...this.forms);
 
 		// Call to get the codeTables.
 		// this.dataActions.getCodeTables(...this.lastCodeTables);
