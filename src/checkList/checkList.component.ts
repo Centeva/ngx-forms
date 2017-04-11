@@ -19,7 +19,6 @@ export class CheckListComponent implements OnInit, OnDestroy, OnChanges {
 	@Output() onChecked: EventEmitter<any> = new EventEmitter<any>();
 	@Input() required: boolean = false;
 	@Input() disabled: boolean = false;
-	storeSubscription: Subscription;
 	toggled: boolean = false;
 	constructor(private elementRef: ElementRef) { }
 
@@ -27,7 +26,6 @@ export class CheckListComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	ngOnDestroy() {
-		this.storeSubscription.unsubscribe();
 	}
 
 	ngOnChanges() {
