@@ -14,3 +14,6 @@ import 'moment';
 import 'jquery';
 import 'quill';
 import 'angular-pipes';
+
+import '@angular2-material/checkbox';
+import 'ct-ngx-datepicker';

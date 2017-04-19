@@ -38,7 +38,7 @@ export class CheckListComponent implements OnInit, OnDestroy, OnChanges {
 		this.onChecked.emit(value);
 	}
 
-	isChecked(id: string | number) {
+	@Input() isChecked = function (id: string | number, values) {
 		return _.findIndex(this.values, c => c+'' === id+'') >= 0;
 	}
 

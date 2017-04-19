@@ -7,8 +7,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
 module.exports = webpackMerge({
-  devtool: 'inline-source-map',
-
   entry: {
     'app': './src/lib.ts'
   },
@@ -31,7 +29,11 @@ module.exports = webpackMerge({
     '@angular/forms',
     'rxjs',
     'moment',
-    'jquery'
+    'jquery',
+    'ct-ngx-datepicker',
+    'quill',
+    'angular-pipes',
+    '@angular2-material/checkbox'
   ],
 
   resolve: {
