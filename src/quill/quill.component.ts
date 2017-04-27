@@ -65,9 +65,6 @@ export class QuillComponent implements ControlValueAccessor, AfterViewInit {
 
 	ngAfterViewInit() {
 		let Parchment = quill.import('parchment');
-		let Block = Parchment.query('block');
-		Block.tagName = 'SPAN';
-		quill.register(Block, true);
 		this.updateEditor();
 
 		this.quillEditor.on('text-change', (() => {
