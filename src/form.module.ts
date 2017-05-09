@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { EditFormComponent } from './editForm';
+import { NgxFormComponent } from './ngxForm';
 import { EditListComponent } from './editList';
 import { CheckListComponent } from './checkList';
 import { SearchOptionsComponent } from './searchOptions';
@@ -31,6 +32,7 @@ export { Tools } from './editForm';
   ],
   declarations: [
     EditFormComponent,
+    NgxFormComponent,
     EditListComponent,
     CheckListComponent,
     SearchOptionsComponent,
@@ -42,6 +44,7 @@ export { Tools } from './editForm';
   ],
   exports: [
     EditFormComponent,
+    NgxFormComponent,
     EditListComponent,
     SearchOptionsComponent,
     CheckListComponent,
@@ -54,7 +57,7 @@ export class FormModule {
 
   static initModule(config: FormsConfig = <FormsConfig>{}) {
     return {
-      ngModule: FormModule,
+      ngModule: [ FormModule, ...config.fieldModules ],
       providers: [
         { provide: FormsConfig, useValue: config }
       ]
@@ -66,4 +69,6 @@ class emptyConfig extends FormsConfig {
   refreshCall() {
 
   }
+
+  fieldModules = [];
 }
