@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -21,41 +21,41 @@ import { FormsConfig } from './formsConfig';
 export { FormsConfig } from './formsConfig';
 export { Tools } from './editForm';
 
-@NgModule({
-  imports: [
-    MdCheckboxModule,
-    CommonModule,
-    NgPipesModule,
-    DatePickerModule,
-    FormsModule
-  ],
-  declarations: [
-    EditFormComponent,
-    EditListComponent,
-    CheckListComponent,
-    SearchOptionsComponent,
-    QuillComponent,
-    DynamicComponent,
-    IsEmpty,
-    GroupByPipe,
-    Search
-  ],
-  exports: [
-    EditFormComponent,
-    EditListComponent,
-    SearchOptionsComponent,
-    CheckListComponent,
-    QuillComponent,
-    DynamicComponent
-    
-  ],
-})
-export class FormModule {
+export class NgxFormsModule {
 
-  static initModule(config: FormsConfig = <FormsConfig>{}) {
+  static initModule(config: FormsConfig = <FormsConfig>{}): ModuleWithProviders {
+    @NgModule({
+      imports: [
+        MdCheckboxModule,
+        CommonModule,
+        NgPipesModule,
+        DatePickerModule,
+        FormsModule,
+        ...config.fieldModules
+      ],
+      declarations: [
+        EditFormComponent,
+        EditListComponent,
+        CheckListComponent,
+        SearchOptionsComponent,
+        QuillComponent,
+        DynamicComponent,
+        IsEmpty,
+        GroupByPipe,
+        Search
+      ],
+      exports: [
+        EditFormComponent,
+        EditListComponent,
+        SearchOptionsComponent,
+        CheckListComponent,
+        QuillComponent,
+        DynamicComponent
+
+      ],
+    }) class NgxFormsInnerModule { }
     return {
-      imports: config.fieldModules,
-      ngModule: FormModule,
+      ngModule: NgxFormsInnerModule,
       providers: [
         { provide: FormsConfig, useValue: config }
       ]

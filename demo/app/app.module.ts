@@ -8,11 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { appRouterProviders } from './app.routes';
-import { FormModule, Tools } from '../../src/form.module';
+import { NgxFormsModule, Tools } from '../../src/form.module';
 import { FormsConfig, FieldModuleBase } from '../../src/formsConfig';
 
 @Component({
 	selector: 'field-one',
+	template: '<h3>Field One!</h3>'
 })
 class fieldOneComponent { }
 
@@ -47,7 +48,7 @@ let config = new MyFormConfig();
 		FormsModule,
 		HttpModule,
 		ReactiveFormsModule,
-		FormModule.initModule(config)
+		NgxFormsModule.initModule(config)
 	],
 	bootstrap: [
 		AppComponent
@@ -57,5 +58,4 @@ let config = new MyFormConfig();
 		HttpModule,
 	],
 })
-export class AppModule {
-}
+export class AppModule {}
