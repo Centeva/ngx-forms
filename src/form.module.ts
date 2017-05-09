@@ -54,6 +54,7 @@ export class FormModule {
 
   static initModule(config: FormsConfig = <FormsConfig>{}) {
     return {
+      imports: config.fieldModules,
       ngModule: FormModule,
       providers: [
         { provide: FormsConfig, useValue: config }
@@ -62,8 +63,4 @@ export class FormModule {
   }
 }
 
-class emptyConfig extends FormsConfig {
-  refreshCall() {
-
-  }
-}
+class emptyConfig extends FormsConfig { }
