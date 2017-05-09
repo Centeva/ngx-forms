@@ -1,5 +1,5 @@
 import { HomeComponent } from './component/home/';
-import { NgModule } from '@angular/core';
+import { NgModule, Component, NgModuleRef } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformLocation } from "@angular/common";
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -8,14 +8,31 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { appRouterProviders } from './app.routes';
-import { FormModule, Tools } from '../../src/form.module';
-import { FormsConfig } from '../../src/formsConfig';
+import { NgxFormsModule, Tools } from '../../src/form.module';
+import { FormsConfig, FieldModuleBase } from '../../src/formsConfig';
+
+@Component({
+	selector: 'field-one',
+	template: '<h3>Field One!</h3>'
+})
+class fieldOneComponent { }
+
+@NgModule({
+	declarations: [
+		fieldOneComponent
+	],
+	exports: [
+		fieldOneComponent
+	]
+})
+class projectFields extends FieldModuleBase { }
 
 class MyFormConfig extends FormsConfig {
-	refreshCall(s: {Type: string}, form) {
-		
+	refreshCall(s: { Type: string }, form) {
 		console.log('WOW!');
 	}
+
+	fieldModules = [ projectFields ]
 };
 
 let config = new MyFormConfig();
@@ -31,7 +48,7 @@ let config = new MyFormConfig();
 		FormsModule,
 		HttpModule,
 		ReactiveFormsModule,
-		FormModule.initModule(config)
+		NgxFormsModule.initModule(config)
 	],
 	bootstrap: [
 		AppComponent
@@ -41,5 +58,4 @@ let config = new MyFormConfig();
 		HttpModule,
 	],
 })
-export class AppModule {
-}
+export class AppModule {}
