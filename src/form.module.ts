@@ -22,9 +22,9 @@ import { FormsConfig } from './formsConfig';
 export { FormsConfig } from './formsConfig';
 export { Tools } from './editForm';
 
-export class NgxFormsModule {
+export class NgxFormsUtil {
 
-  static initModule(config: FormsConfig = <FormsConfig>{}): ModuleWithProviders {
+  static BaseFieldModule() {
     @NgModule({
       imports: [
         MdCheckboxModule,
@@ -32,13 +32,9 @@ export class NgxFormsModule {
         NgPipesModule,
         DatePickerModule,
         FormsModule,
-        ...config.fieldModules
       ],
       declarations: [
-        EditFormComponent,
-        EditListComponent,
         CheckListComponent,
-        NgxFormComponent,
         SearchOptionsComponent,
         QuillComponent,
         DynamicComponent,
@@ -47,14 +43,39 @@ export class NgxFormsModule {
         Search
       ],
       exports: [
-        EditFormComponent,
-        EditListComponent,
         SearchOptionsComponent,
         CheckListComponent,
-        NgxFormComponent,
         QuillComponent,
-        DynamicComponent
+        DynamicComponent,
+        IsEmpty,
+        GroupByPipe,
+        Search
 
+      ],
+    }) class BaseFieldModule { }
+    return BaseFieldModule
+  }
+
+  static forRoot(config: FormsConfig = <FormsConfig>{}): ModuleWithProviders {
+    @NgModule({
+      imports: [
+        CommonModule,
+        NgPipesModule,
+        DatePickerModule,
+        FormsModule,
+        MdCheckboxModule,
+        NgxFormsUtil.BaseFieldModule(),
+        ...config.fieldModules
+      ],
+      declarations: [
+        EditFormComponent,
+        EditListComponent,
+        NgxFormComponent
+      ],
+      exports: [
+        EditFormComponent,
+        EditListComponent,
+        NgxFormComponent
       ],
     }) class NgxFormsInnerModule { }
     return {

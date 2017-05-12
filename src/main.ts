@@ -1,4 +1,4 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NgxFormsModule } from './form.module';
+import { NgxFormsUtil } from './form.module';
 
-platformBrowserDynamic().bootstrapModule(NgxFormsModule);
+platformBrowserDynamic().bootstrapModule(NgxFormsUtil);

@@ -8,8 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { appRouterProviders } from './app.routes';
-import { NgxFormsModule, Tools } from '../../src/form.module';
+import { NgxFormsUtil, Tools } from '../../src/form.module';
 import { FormsConfig, FieldModuleBase } from '../../src/formsConfig';
+import { makeDecorator } from "@angular/core/src/util/decorators";
+import { isPresent } from "@angular/core/src/facade/lang";
+import * as R from 'reflect-metadata';
 
 @Component({
 	selector: 'field-one',
@@ -17,15 +20,21 @@ import { FormsConfig, FieldModuleBase } from '../../src/formsConfig';
 })
 class fieldOneComponent { }
 
+@Field({Type: 'WOW'}) class fieldTwoComponent{ }
+
 @NgModule({
 	declarations: [
-		fieldOneComponent
+		fieldOneComponent,
+		fieldTwoComponent
 	],
 	exports: [
-		fieldOneComponent
+		fieldOneComponent,
+		fieldTwoComponent
 	]
 })
-class projectFields extends FieldModuleBase { }
+class projectFields extends FieldModuleBase {
+	Fields = [fieldOneComponent, fieldTwoComponent]
+ }
 
 class MyFormConfig extends FormsConfig {
 	refreshCall(s: { Type: string }, form) {
@@ -48,7 +57,7 @@ let config = new MyFormConfig();
 		FormsModule,
 		HttpModule,
 		ReactiveFormsModule,
-		NgxFormsModule.initModule(config)
+		NgxFormsUtil.forRoot(config)
 	],
 	bootstrap: [
 		AppComponent
@@ -59,3 +68,27 @@ let config = new MyFormConfig();
 	],
 })
 export class AppModule {}
+
+export type ngxFieldConfig = Partial<{ Type: string }>;
+
+export function Field(annotation: any) {
+  return function (target: Function) {
+    var parentTarget = Object.getPrototypeOf(target.prototype).constructor;
+    
+    var parentAnnotations = R.getMetadata('annotations', parentTarget);
+		console.log(parentAnnotation[0]);
+    
+    var parentAnnotation = parentAnnotations[0];
+    Object.keys(parentAnnotation).forEach(key => {
+      if (isPresent(parentAnnotation[key])) {
+        if (!isPresent(annotation[key])) {
+          annotation[key] = parentAnnotation[key];
+        }
+      }
+    });
+    
+    var metadata = new ComponentMetadata(annotation);
+
+    Reflect.defineMetadata('annotations', [ metadata ], target);
+  };
+};

@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { FormsConfig } from '../formsConfig';
 
+
 @Component({
 
 	selector: 'ngx-form',
@@ -12,5 +13,7 @@ import { FormsConfig } from '../formsConfig';
 	styleUrls: ['ngxForm.component.less']
 })
 export class NgxFormComponent {
-
+	constructor(public config: FormsConfig) {
+		console.log(config.fieldModules);
+	}
 }

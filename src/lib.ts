@@ -1,1 +1,1 @@
-export { NgxFormsModule, FormsConfig, Tools } from './form.module';
+export { NgxFormsUtil, FormsConfig, Tools } from './form.module';

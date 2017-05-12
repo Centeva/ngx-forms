@@ -69,7 +69,8 @@
     "@angular2-material/checkbox": "^2.0.0-alpha.8-2",
     "angular-pipes": "^6.1.1",
     "ct-ngx-datepicker": "^2.2.0",
-    "quill": "^1.2.0"
+    "quill": "^1.2.0",
+    "reflect-metadata": "^0.1.10"
   },
   "bugs": {
     "url": "https://github.com/Centeva/ngx-forms/issues"
