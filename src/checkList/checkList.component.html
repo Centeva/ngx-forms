@@ -4,6 +4,6 @@
 		<div class="placeholder">{{getSelected()}} <span class="caret pull-right"></span></div>
 	</button>
 	<div class="dropdown" *ngIf="toggled">
-		<md-checkbox class="option" [class.disabled]="disabled" [(ngModule)]="inputValues[option.Value]" *ngFor="let option of options" [checked]="isChecked(option.Value, inputValues)" (change)="onChanged(option.Value)" [disabled]="disabled">{{option.Name}}</md-checkbox>
+		<md-checkbox class="option" [class.disabled]="disabled" [(ngModel)]="inputValues[option.Value]" *ngFor="let option of options" [checked]="isChecked(option.Value, inputValues)" (change)="onChanged(option.Value)" [disabled]="disabled">{{option.Name}}</md-checkbox>
 	</div>
 </div>
