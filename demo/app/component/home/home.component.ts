@@ -98,6 +98,10 @@ export class TestOneForm extends Tools.FormConstructor<test & {Id: number}> {
 				Width: 12,
         OptionsArray: [{Name: 'One', Value: 1}, {Name: 'Two', Value: 2}]
 			}),
+			super.newChecklist(0, 'Some List', '', {
+				OptionsArray: [{Name: 'One', Value: 1}, {Name: 'Two', Value: 2}],
+				Width: 12
+			}),
 			super.newDate(0, 'Inspection Completion Date', 'Five', {
 				Width: 6,
 				Changed: ((form, field) => this['completionDate'] = field.Value)
