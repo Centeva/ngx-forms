@@ -53,7 +53,7 @@ export class CheckListComponent implements OnInit, OnDestroy, OnChanges {
 	}
 
 	getSelected() {
-		return this.inputValues ? this.inputValues.length + " Selected" : "0 Selected";
+		return this.inputValues ? this.inputValues.filter(v => !!v).length + " Selected" : "0 Selected";
 	}
 
 	isInvalid() {
