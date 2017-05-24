@@ -20,6 +20,7 @@ import { FormsConfig } from './formsConfig';
 
 export { FormsConfig } from './formsConfig';
 export { Tools } from './editForm';
+export { SearchModel } from './search.pipe';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ export { Tools } from './editForm';
     CommonModule,
     NgPipesModule,
     DatePickerModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     EditFormComponent,
