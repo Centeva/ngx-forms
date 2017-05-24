@@ -46,7 +46,9 @@ export { Tools } from './editForm';
     SearchOptionsComponent,
     CheckListComponent,
     QuillComponent,
-    DynamicComponent
+    DynamicComponent,
+    Search,
+    IsEmpty
     
   ],
 })
