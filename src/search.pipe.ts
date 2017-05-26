@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-@Injectable()
 export class SearchModel {
 	matchArray: string[] = [''];
 	matchObject: any = '';
