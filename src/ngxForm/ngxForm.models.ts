@@ -1,8 +1,9 @@
 import * as _ from 'lodash';
+import { Component } from "@angular/core";
 
 export namespace Tools {
-	
-	interface fieldTypes {}
+
+	interface fieldTypes { }
 
 	export type NameValuePair<T> = { Name: string | number; Value: T; };
 
@@ -37,13 +38,23 @@ export namespace Tools {
 		public displayName: keyof T;
 		public params?: Tools.FieldParams;
 		public value: T[keyof T];
+		public component: Component;
+		public IO: keyof Component;
 
-		constructor(id: number, fieldName: string, displayName: keyof T, params?: Tools.FieldParams) {
+		constructor(id: number, fieldName: string, displayName: keyof T, component: Component, IO?: keyof Component, params?: Tools.FieldParams) {
 			this.id = id;
 			this.fieldName = fieldName;
 			this.displayName = displayName;
 			this.params = params;
-			let pair = {Name: '', Value: Array<string>() }
+			this.component = component;
+			this.IO = IO;
+			let pair = { Name: '', Value: Array<string>() }
+		}
+
+		paramsType(field: any) {
+			let props = Reflect.getMetadataKeys(field.component);
+			console.log(props);
+			return typeof props;
 		}
 	}
 

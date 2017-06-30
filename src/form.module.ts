@@ -78,12 +78,15 @@ export class NgxFormsUtil {
         NgxFormComponent
       ],
     }) class NgxFormsInnerModule { }
+    
+    config.innerModule = NgxFormsInnerModule;
+
     return {
       ngModule: NgxFormsInnerModule,
       providers: [
         { provide: FormsConfig, useValue: config }
       ]
-    }
+    }    
   }
 }
 

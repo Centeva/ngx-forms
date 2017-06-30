@@ -20,7 +20,11 @@ import * as R from 'reflect-metadata';
 })
 class fieldOneComponent { }
 
-@Field({Type: 'WOW'}) class fieldTwoComponent{ }
+@Component({
+	selector: 'field-two',
+	template: '<h3>Field Two!</h3>'
+})
+class fieldTwoComponent{ }
 
 @NgModule({
 	declarations: [
@@ -71,24 +75,24 @@ export class AppModule {}
 
 export type ngxFieldConfig = Partial<{ Type: string }>;
 
-export function Field(annotation: any) {
-  return function (target: Function) {
-    var parentTarget = Object.getPrototypeOf(target.prototype).constructor;
+// export function Field(annotation: any) {
+//   return function (target: Function) {
+//     var parentTarget = Object.getPrototypeOf(target.prototype).constructor;
     
-    var parentAnnotations = R.getMetadata('annotations', parentTarget);
-		console.log(parentAnnotation[0]);
+//     var parentAnnotations = R.getMetadata('annotations', parentTarget);
+// 		console.log(parentAnnotation[0]);
     
-    var parentAnnotation = parentAnnotations[0];
-    Object.keys(parentAnnotation).forEach(key => {
-      if (isPresent(parentAnnotation[key])) {
-        if (!isPresent(annotation[key])) {
-          annotation[key] = parentAnnotation[key];
-        }
-      }
-    });
+//     var parentAnnotation = parentAnnotations[0];
+//     Object.keys(parentAnnotation).forEach(key => {
+//       if (isPresent(parentAnnotation[key])) {
+//         if (!isPresent(annotation[key])) {
+//           annotation[key] = parentAnnotation[key];
+//         }
+//       }
+//     });
     
-    var metadata = new ComponentMetadata(annotation);
+//     var metadata = new ComponentMetadata(annotation);
 
-    Reflect.defineMetadata('annotations', [ metadata ], target);
-  };
-};
+//     Reflect.defineMetadata('annotations', [ metadata ], target);
+//   };
+// };
