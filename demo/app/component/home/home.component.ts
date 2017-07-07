@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as moment from 'moment';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Tools } from '../../../../src/form.module';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { fieldOneComponent, fieldTwoComponent, fieldThreeComponent } from "../../app.module";
+import { SearchOptionsComponent } from "../../../../src/searchOptions/index";
+
 @Component({
   selector: 'home',
   templateUrl: 'home.component.html',
@@ -10,23 +12,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  form: TestOneForm;
-  date1: moment.Moment = undefined;
-  date2: moment.Moment = undefined;
-  date3: moment.Moment = undefined;
-  state: BehaviorSubject<any>;
-
-  yearFirstRegex = new RegExp(/^(\d{4})(-|\/)(\d{2})(-|\/)(\d{2})$/);
+  mytest: test = new test({Three: 'Noice!'});
+  form: TestTwoForm = new TestTwoForm(1, this.mytest);
 
   constructor(private fb: FormBuilder) {
-
+    //Observable.timer(0, 1000).subscribe(t => this.form.model = new test({Three: t.toString()}));
   }
 
   ngOnInit() {
-    this.form = new TestOneForm(0);
-	let testState = {DataOne: [{Code: 'ONE', Value: 1}, {Code: 'TWO', Value: 2}]};
-	this.state = new BehaviorSubject<any>(testState);
-	let obs = Observable.interval(1000).subscribe((() => this.state.next(testState)).bind(this));
   }
 
   ngOnDestroy() {
@@ -34,74 +27,39 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 }
 
-type test = {
+class test {
+  Id: number;
   One: any;
   Two: any;
   Three: any;
   Four: any;
   Five: any;
+
+  constructor(fields?: Partial<test>) {
+    Object.assign(this, fields);
+  }
 }
 
-export class TestOneForm extends Tools.FormConstructor<test & {Id: number}> {
-	toggled = false;
+class TestTwoForm extends Tools.FormConstructor<test> {
 
-	constructor(id: number) {
-		super(id, undefined, { Style: 'dropdown-style' });
-		super['offset'] = null;
-		super['completionDate'] = null;
-	}
-
-	save(converted: test & {Id: number, Dockets: any[], dualDates: {To: moment.Moment, From: moment.Moment}}) {
-
-		delete converted.dualDates;
-		delete converted.Id;
-		delete converted.Dockets;
-
-		this.toggled = false;
-	}
-
-	cancel() {
-		this.toggled = false;
-	}
-
-	allCall(searchString) {
-		this['searchString'] = searchString;
-	}
-
-	calcOffset() {
-		if (this['completionDate'] && this['offset']) {
-			return moment(this['completionDate']).add(this['offset'], 'days').format('MM/DD/YYYY');
+	ids() {
+		enum ids {
+			one,
+			two,
+			three
 		}
-
-		return 'Select an Inspection Type and Completion Date.';
+		return ids;
 	}
 
-	toggle() {
-		this.toggled = !this.toggled;
+	protected onSave(converted: test) {
+    console.log(converted);
 	}
 
 	initFields() {
 		return [
-			super.newOptions(0, 'Report Type', 'One', {
-				Width: 12,
-				OptionsParams: 'ReportType'
-			}),
-			super.newOptions(0, 'Another one', 'Two', {
-				Width: 12,
-				OptionsParams: 'DataOne',
-				Map: (d) => d.map(o => ({Name: o.Code, Value: o.Value}))
-			}),
-			super.newDualDate(0, 'Date Available in HRMS', 'Three', {
-				Width: 12
-			}),
-			super.newOptions(0, 'Inspection Type', 'Four', {
-				Width: 12,
-        OptionsArray: [{Name: 'One', Value: 1}, {Name: 'Two', Value: 2}]
-			}),
-			super.newDate(0, 'Inspection Completion Date', 'Five', {
-				Width: 6,
-				Changed: ((form, field) => this['completionDate'] = field.Value)
-			})
+			new Tools.Field<test>(this.ids().one, 'One', fieldOneComponent),
+			new Tools.Field<test>(this.ids().two, 'Two', fieldTwoComponent),
+			new Tools.Field<test, fieldThreeComponent>(this.ids().three, 'Three', { fieldName: 'Three!' }),
 		];
 	}
 

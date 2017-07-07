@@ -1,6 +1,6 @@
 import { HomeComponent } from './component/home/';
-import { NgModule, Component, NgModuleRef } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformLocation } from "@angular/common";
+import { NgModule, Component, NgModuleRef, EventEmitter, Output, Input } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformLocation, CommonModule } from "@angular/common";
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,32 +13,49 @@ import { FormsConfig, FieldModuleBase } from '../../src/formsConfig';
 import { makeDecorator } from "@angular/core/src/util/decorators";
 import { isPresent } from "@angular/core/src/facade/lang";
 import * as R from 'reflect-metadata';
+import { NgPipesModule } from 'angular-pipes';
+import { SearchOptionsComponent } from "../../src/searchOptions/index";
 
 @Component({
 	selector: 'field-one',
 	template: '<h3>Field One!</h3>'
 })
-class fieldOneComponent { }
+export class fieldOneComponent { }
 
 @Component({
 	selector: 'field-two',
 	template: '<h3>Field Two!</h3>'
 })
-class fieldTwoComponent{ }
+export class fieldTwoComponent{ }
+
+@Component({
+	selector: 'field-three',
+	template: '<h3>{{fieldName}}</h3> <input type="text" [(ngModel)]="value" (keyup)="valueChanged.emit(value);">'
+})
+export class fieldThreeComponent {
+	@Input() fieldName: string;
+	@Input() value: string;
+	@Output() valueChanged: EventEmitter<string> = new EventEmitter<string>();
+ }
 
 @NgModule({
 	declarations: [
 		fieldOneComponent,
-		fieldTwoComponent
+		fieldTwoComponent,
+		fieldThreeComponent,
 	],
 	exports: [
 		fieldOneComponent,
-		fieldTwoComponent
+		fieldTwoComponent,
+		fieldThreeComponent
+	],
+	imports: [
+		CommonModule,
+		FormsModule,
+		NgPipesModule
 	]
 })
-class projectFields extends FieldModuleBase {
-	Fields = [fieldOneComponent, fieldTwoComponent]
- }
+class projectFields extends FieldModuleBase {}
 
 class MyFormConfig extends FormsConfig {
 	refreshCall(s: { Type: string }, form) {

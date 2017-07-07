@@ -29,31 +29,23 @@ export namespace Tools {
 		}
 	}
 
-	export type FieldParams = {}
-
-	export class Field<T> {
+	export class Field<T, U extends Component = any> {
 
 		public id: number;
-		public fieldName: string;
-		public displayName: keyof T;
-		public params?: Tools.FieldParams;
+		public fieldName: keyof T;
 		public value: T[keyof T];
-		public component: Component;
-		public IO: keyof Component;
+		public component: U;
+		public IO: Partial<U>;
 
-		constructor(id: number, fieldName: string, displayName: keyof T, component: Component, IO?: keyof Component, params?: Tools.FieldParams) {
+		constructor(id: number, fieldName: keyof T, IO?: Partial<U>) {
 			this.id = id;
 			this.fieldName = fieldName;
-			this.displayName = displayName;
-			this.params = params;
-			this.component = component;
 			this.IO = IO;
 			let pair = { Name: '', Value: Array<string>() }
 		}
 
 		paramsType(field: any) {
 			let props = Reflect.getMetadataKeys(field.component);
-			console.log(props);
 			return typeof props;
 		}
 	}
@@ -65,9 +57,7 @@ export namespace Tools {
 		let mapObj: mapObj = {};
 
 		for (let field of form.fields) {
-			if (this.checkGroup(field, form.fields)) {
-				val = _.set(val, field.fieldName, field.value);
-			}
+			val = _.set(val, field.fieldName, field.value);
 		}
 
 		val['id'] = form.id;
@@ -77,31 +67,30 @@ export namespace Tools {
 
 	interface modelBase {
 		Id: number;
-		new (): this;
 	}
 
 	export type keyOf<T> = {
 		[P in keyof T]: P;
 	};
 
-	export function enumerate<T>(type: { new (): T; }) {
-		let obj = new type();
-		return obj;
-	}
+	// export function enumerate<T>(type: { new (): T; }) {
+	// 	let obj = new type();
+	// 	return obj;
+	// }
 
 	export interface FormConstructor<T extends modelBase> {
 		params?: Tools.FormParams;
-		cancel?(form: Tools.Form<T>): void;
+		onCancel?(form: Tools.Form<T>): void;
 	}
 
 	export abstract class FormConstructor<T extends modelBase> {
 
-		public map = enumerate<T>(this.model);
+		// public map = enumerate<T>(this.model);
 		private _form: Tools.Form<T>;
 		private _editing: boolean = false;
 		private _model: T;
 
-		abstract ids;
+		abstract ids<U>(): U;
 
 		get form(): Tools.Form<T> {
 			return this._form;
@@ -124,9 +113,8 @@ export namespace Tools {
 			return this._model;
 		}
 
-		constructor(id: number, model?: T, params?: Tools.FormParams) {
+		constructor(id: number, model: T, params?: Tools.FormParams) {
 			this.params = params;
-			this.setForm();
 			this.model = model;
 			if (id === 0) {
 				this.isEditing = true;
@@ -134,26 +122,33 @@ export namespace Tools {
 		}
 
 		public setForm(data?: T) {
+			console.log('setForm!');
 			data = data ? data : <T>{};
 			this._form = new Tools.Form<T>(
 				data.Id || 0,
 				this.params,
-				...this.initFields(data));
+				...this.baseInitFields(data));
 		}
 
-		private baseSave<T>(form: Tools.Form<T>) {
-			let converted = Tools.mapFormToModel<T>(form);
-			this.save(converted);
+		public save() {
+			let converted = Tools.mapFormToModel<T>(this.form);
+			this.onSave(converted);
 			this.isEditing = false;
 		}
 
-		abstract save(converted);
+		protected abstract onSave(converted);
 
-		abstract initFields<T>(data?: T): Tools.Field<T>[];
+		private baseInitFields(data: T) {
+			let fields = this.initFields();
+			fields.forEach(f => f.value = data[<string>f.fieldName]);
+			return fields;
+		}
 
-		private baseCancel(form: Tools.Form<T>) {
-			if (this.cancel) {
-				this.cancel(form);
+		abstract initFields<T>(data?: T): Tools.Field<T, any>[];
+
+		public cancel() {
+			if (this.onCancel) {
+				this.onCancel(this.form);
 			}
 
 			this.isEditing = false;

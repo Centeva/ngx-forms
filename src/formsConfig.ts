@@ -5,7 +5,6 @@ import { BrowserModule } from "@angular/platform-browser";
 export class FieldModuleBase { }
 
 export interface FormsConfig {
-    refreshCall<T>(s: T, ...form: Tools.Form[]);
     fieldModules: (ModuleWithProviders | typeof BrowserModule)[];
     innerModule;
 }

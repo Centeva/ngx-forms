@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, Host, ElementRef, OnChanges } from '@angular/core';
 // import { Store, AppState } from '../../../cdux';
 import { Subscription } from 'rxjs';
-import { Tools } from '../editForm';
+import { Tools } from '../ngxForm';
 import * as _ from 'lodash';
 
 @Component({
@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 	}
 })
 export class CheckListComponent implements OnInit, OnDestroy, OnChanges {
-	@Input() options: Tools.NameValuePair[] = [];
+	@Input() options: Tools.NameValuePair<any>[] = [];
 	@Input() values: any[] = [];
 	@Output() onChecked: EventEmitter<any> = new EventEmitter<any>();
 	@Input() required: boolean = false;
