@@ -335,104 +335,104 @@ export namespace Tools {
 		abstract initFields<T>(data?: T): Tools.Field[];
 
 		// Options
-		newOptions<U extends keyof T>(id: number, displayName: string, fieldName: U, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, options>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, options>> = { ...optional };
+		newOptions<U extends keyof T & string>(id: number, displayName: string, fieldName: U, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, options>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, options>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Options, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Header
-		newHeader<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newHeader<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Header, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Static
-		newStatic<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, staticField>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, staticField>> = { ...optional };
+		newStatic<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, staticField>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, staticField>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Static, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Text
-		newText<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newText<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Text, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Email
-		newEmail<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newEmail<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.TextArea, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// TextArea
-		newTextarea<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newTextarea<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.TextArea, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Date
-		newDate<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, date>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, date>> = { ...optional };
+		newDate<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, date>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, date>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Date, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 
 		// Checklist
-		newChecklist<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, checklist>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, checklist>> = { ...optional };
+		newChecklist<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, checklist>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, checklist>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Checklist, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Button
-		newButton<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, button>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, button>> = { ...optional };
+		newButton<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, button>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, button>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Button, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// List
-		newEditList<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, list>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, list>> = { ...optional };
+		newEditList<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, list>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, list>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.List, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Checkbox
-		newCheckbox<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, checkbox>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, checkbox>> = { ...optional };
+		newCheckbox<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, checkbox>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, checkbox>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Checkbox, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 		// Slider
-		newSlider<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newSlider<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Slider, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Link
-		newLink<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newLink<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Link, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// // DocketSearch
-		// newDocketSearch<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, docketSearch>> = { value: undefined }) {
-		// 	let params: Partial<Pick<Tools.FieldParams, docketSearch>> = { ...optional };
+		// newDocketSearch<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, docketSearch>> = { value: undefined }) {
+		// 	let params: Partial<Pick<Tools.FieldParams, docketSearch>> = { ...optional } as Tools.FieldParams;
 		// 	return new Tools.Field(id, displayName, Tools.FieldType.DocketSearch, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		// }
 
 		// RichText
-		newRichText<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newRichText<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.RichText, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// DualDate
-		newDualDate<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newDualDate<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.DualDate, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 
 		// Numeric
-		newNumeric<U extends keyof T>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
-			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional };
+		newNumeric<U extends keyof T & string>(id: number, displayName: string, fieldName: string, optional: coreOptional<T, U> & Partial<Pick<Tools.FieldParams, coreParams>> = { value: undefined }) {
+			let params: Partial<Pick<Tools.FieldParams, coreParams>> = { ...optional } as Tools.FieldParams;
 			return new Tools.Field(id, displayName, Tools.FieldType.Numeric, optional.value, optional.helpText, optional.required, optional.display, { ...params, MapName: fieldName }, optional.hideInForm);
 		}
 	}

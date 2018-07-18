@@ -4,7 +4,7 @@ import { LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformL
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Form } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { appRouterProviders } from './app.routes';
@@ -12,10 +12,10 @@ import { FormModule, Tools } from '../../src/form.module';
 import { FormsConfig } from '../../src/formsConfig';
 
 class MyFormConfig extends FormsConfig {
-	refreshCall(s: {Type: string}, form) {
-		
-		console.log('WOW!');
+	refreshCall<T>(s: T, ...form: Tools.Form[]) {
+		console.log('WOW');
 	}
+	
 };
 
 let config = new MyFormConfig();
